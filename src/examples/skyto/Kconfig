@@ -1,0 +1,6 @@
+menuconfig EXAMPLES_SKYTO
+	bool "skyto"
+	default n
+	---help---
+		Enable support for skyto. for summer school
+
