@@ -1,3 +1,43 @@
+
+
+# Літня школа 2024.
+1. Переконайтеся що ви встановили px4 з всіма залежностями і у вас успішно компілюється код.
+https://docs.px4.io/main/en/dev_setup/dev_env.html
+2. Переконайтеся що ви встановили QGroundControl
+https://docs.qgroundcontrol.com/en/getting_started/download_and_install.html
+3. Встановіть px4 з версією для літньої школи.
+
+```
+git clone https://github.com/hronoses/PX4-Autopilot.git --recursive
+git fetch upstream --tags
+git checkout ai_for_def
+make px4_sitl jmavsim
+```
+Запустіть QgroundControl, дочекатися з'єднання з симуляцією.
+В консолі, дочекайтеся повідомлення: INFO  [commander] Ready for takeoff!
+
+В консолі введіть команду:
+```
+skyto fly
+```
+Дрон має почати вертикальний підйом, згідно програми в модулі skyto. (src/examples/skyto)
+
+Можете замість jmavsim спробувати інші симулятори, наприклад gazebo.
+```
+make px4_sitl gz_x500
+```
+
+Домашне завдання (доробити модуль skyto src/examples/skyto):
+1. Додати умову: при досягнені висоти 100 м, дрон переходить в режим Return to launch (RTL).
+ (розібратися як підключати topic local_vehicle_position, робити на нього підписку, оновлювати дані. Номер команди RTL ви зможете знайти в commander.cpp).
+
+2. (з зірочкою) Зробити веритикальний підйом з синусоїдальним коливанням куту roll від -15 до +15 градусів. (розібратися як переводити кути Ейлера в кватерніони, відслідковувати час)
+  Підказка: див реалізацію переходу апарату класу тайлсіттер в режим горизонтального польоту (src/modules/vtol_att_control/vtol_type.cpp src/modules/vtol_att_control/tailsitter.cpp)
+
+Дивіться реалізацію інших модулів для підказок. Спілкуйтеся між собою для вирішення проблем.
+
+Інструкція перевірена для Ubuntu 20.04. Якщо що, питайте в інших учасників порад.
+
 # PX4 Drone Autopilot
 
 [![Releases](https://img.shields.io/github/release/PX4/PX4-Autopilot.svg)](https://github.com/PX4/PX4-Autopilot/releases) [![DOI](https://zenodo.org/badge/22634/PX4/PX4-Autopilot.svg)](https://zenodo.org/badge/latestdoi/22634/PX4/PX4-Autopilot)
